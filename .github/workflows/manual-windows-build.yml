@@ -28,11 +28,17 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
+      - name: Prepare version metadata and caches
+        uses: ./.github/actions/setup-build
+        with:
+          platform: ${{ env.PLATFORM }}
+          sha: ${{ inputs.source_sha }}
+          refspec: manual-pr567
+          tag: manual-pr567
+          release: false
+
       - name: Set up MSVC
         uses: ilammy/msvc-dev-cmd@v1
-
-      - name: Install Ninja and CMake
-        uses: lukka/get-cmake@latest
 
       - name: Install Qt 6 for MSVC x64
         uses: jurplel/install-qt-action@v4
